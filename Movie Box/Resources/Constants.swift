@@ -15,11 +15,10 @@ struct K {
     static let basedURL = "https://api.themoviedb.org"
     
     struct SectionTitles {
-        static let popularMovies = "Popular Movies"
-        static let top = "Top"
-        static let popularTV = "Popular TV"
+        static let popularMovies = "Trending Movies"
+        static let top = "Trending TV"
+        static let popularTV = "Popular "
         static let upcomingMovies = "Upcoming Movies"
         static let topRater = "Top Rater"
-        
     }
 }

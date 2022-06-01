@@ -39,18 +39,32 @@ class HomeViewController: UIViewController {
         addSubviews()
         setupUIElements()
         
-        getTrendingMovies()
+        fetchData()
     }
     
-    private func getTrendingMovies() {
-        APICaller.shared.gettrandingMovies { results in
-             
-            switch results {
-            case .success(let movies):
-                print(movies)
-            case .failure(let error):
-                print(error)
-            }
+    private func fetchData() {
+//        APICaller.shared.gettrandingMovies { results in
+//
+//            switch results {
+//            case .success(let movies):
+//                print(movies)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        
+//        APICaller.shared.getTrandingTV { results in
+//        }
+        
+//        APICaller.shared.getUpComingMovie { results in
+//
+//        }
+        
+//        APICaller.shared.getPopular { results in
+//
+//        }
+        
+        APICaller.shared.getTopRater { results in 
         }
     }
     
@@ -76,7 +90,7 @@ extension HomeViewController {
         navigationController?.view.backgroundColor = UIColor.clear
         
         let logolabel = UILabel()
-        logolabel.text = "BOX MOVIE"
+        logolabel.text = "MOVIE BOX"
         logolabel.textColor = .systemYellow
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logolabel)
         
