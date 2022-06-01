@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "box.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "box@2x.png",
+      "filename" : "png-transparent-black-video-camera-logo-brand-multimedia-yellow-movie-book-film-music-download-application.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "box@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

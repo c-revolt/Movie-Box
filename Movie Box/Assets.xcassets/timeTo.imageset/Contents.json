@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "box.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "box@2x.png",
+      "filename" : "photographic-film-cinema-logo-png-favpng-q8cRrS7bh7HEaBQd5tRmPAmKg.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "box@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
