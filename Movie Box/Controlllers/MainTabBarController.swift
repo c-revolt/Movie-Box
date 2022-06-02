@@ -40,7 +40,7 @@ extension MainTabBarController {
         searchVC.title = "Search"
         downloadVC.title = "Download"
         
-        tabBar.tintColor = .systemYellow
+        tabBar.tintColor = .systemGreen
         
     }
     

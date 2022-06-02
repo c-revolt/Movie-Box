@@ -10,6 +10,7 @@ import UIKit
 class CollectionViewInTableViewCell: UITableViewCell {
 
     static let identifire = K.collectionViewInTableViewID
+    private var titles: [Title] = [Title]()
 
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -17,7 +18,7 @@ class CollectionViewInTableViewCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: K.collectionViewInTableViewID)
+        collection.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifire)
         return collection
     }()
     
@@ -50,21 +51,33 @@ extension CollectionViewInTableViewCell {
         
         contentView.addSubview(collectionView)
     }
+    
+    public func configure(with titles: [Title]) {
+        self.titles = titles
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate & UICollectionViewDataSource
 extension CollectionViewInTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.collectionViewInTableViewID, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifire, for: indexPath) as? TitleCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         
-        cell.backgroundColor = .systemPink
+        guard let model = titles[indexPath.row].poster_path else {
+            return UICollectionViewCell()
+        }
+        cell.configure(with: model)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return titles.count
     }
     
 }

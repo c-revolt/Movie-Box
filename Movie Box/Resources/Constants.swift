@@ -11,13 +11,14 @@ struct K {
     
     static let homeCellID = "HomeID"
     static let collectionViewInTableViewID = "CollectionViewInTableViewCell"
+    static let titleCollectionViewCell = "TitleCollectionViewCell"
     static let apiKey = "eec2a7a6a8a32b9931505d453985726f"
     static let basedURL = "https://api.themoviedb.org"
     
     struct SectionTitles {
-        static let popularMovies = "Trending Movies"
-        static let top = "Trending TV"
-        static let popularTV = "Popular "
+        static let trendingMovies = "Trending Movies"
+        static let trendingTv = "Trending TV"
+        static let popular = "Popular "
         static let upcomingMovies = "Upcoming Movies"
         static let topRater = "Top Rater"
     }

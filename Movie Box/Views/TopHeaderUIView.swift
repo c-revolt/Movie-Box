@@ -10,8 +10,8 @@ import UIKit
 class TopHeaderUIView: UIView {
     
     private let topImageView: UIImageView = {
-        let imageView = UIImageView()
         
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "original")
@@ -21,8 +21,8 @@ class TopHeaderUIView: UIView {
     private let playButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("PLAY", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .systemYellow
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.backgroundColor = .systemGreen
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.cornerRadius = 7
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ class TopHeaderUIView: UIView {
     private let playButtonIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "play.fill")
-        imageView.tintColor = .white
+        imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -73,8 +73,14 @@ class TopHeaderUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupSubviews()
+        addSubview(topImageView)
         createGradient()
+        addSubview(playButton)
+        playButton.addSubview(playButtonIcon)
+        addSubview(trailerButton)
+        trailerButton.addSubview(trailerLabel)
+        trailerButton.addSubview(trailerButtonIcon)
+        
         applyConctraints()
         
     }
@@ -85,7 +91,6 @@ class TopHeaderUIView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         topImageView.frame = bounds
     }
 
@@ -93,15 +98,6 @@ class TopHeaderUIView: UIView {
 
 // MARK: - Setup UI Elements
 extension TopHeaderUIView {
-    
-    private func setupSubviews() {
-        addSubview(topImageView)
-        addSubview(playButton)
-        playButton.addSubview(playButtonIcon)
-        addSubview(trailerButton)
-        trailerButton.addSubview(trailerLabel)
-        trailerButton.addSubview(trailerButtonIcon)
-    }
     
     private func applyConctraints() {
         playButtonConstaints()
@@ -124,7 +120,7 @@ extension TopHeaderUIView {
     private func playButtonConstaints() {
         
         NSLayoutConstraint.activate([
-            playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
             playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             playButton.widthAnchor.constraint(equalToConstant: 110),
             playButton.heightAnchor.constraint(equalToConstant: 47)
@@ -142,7 +138,7 @@ extension TopHeaderUIView {
     
     private func trailerButtonConstraints() {
         NSLayoutConstraint.activate([
-            trailerButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 15),
+            trailerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
             trailerButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             trailerButton.widthAnchor.constraint(equalToConstant: 110),
             trailerButton.heightAnchor.constraint(equalToConstant: 47)

@@ -1,17 +1,17 @@
 //
-//  TV.swift
+//  Title.swift
 //  Movie Box
 //
-//  Created by Александр Прайд on 01.06.2022.
+//  Created by Александр Прайд on 31.05.2022.
 //
 
 import Foundation
 
-struct TrandingTVResponse: Decodable {
-    let results: [Tv]
+struct TrendingTitle: Decodable {
+    let results: [Title]
 }
 
-struct Tv: Decodable {
+struct Title: Decodable {
     let id: Int
     let media_type: String?
     let original_name: String?

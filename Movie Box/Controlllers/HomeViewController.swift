@@ -7,9 +7,17 @@
 
 import UIKit
 
+enum Sections: Int {
+    case TrendingMovies = 0
+    case TrendingTV = 1
+    case Popular = 2
+    case Upcoming = 3
+    case TopRated = 4
+}
+
 class HomeViewController: UIViewController {
     
-    let sectionTitles: [String] = [K.SectionTitles.popularMovies, K.SectionTitles.top, K.SectionTitles.popularTV, K.SectionTitles.upcomingMovies, K.SectionTitles.topRater]
+    let sectionTitles: [String] = [K.SectionTitles.trendingMovies, K.SectionTitles.trendingTv, K.SectionTitles.popular, K.SectionTitles.upcomingMovies, K.SectionTitles.topRater]
 
     private let feedTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -39,36 +47,7 @@ class HomeViewController: UIViewController {
         addSubviews()
         setupUIElements()
         
-        fetchData()
     }
-    
-    private func fetchData() {
-//        APICaller.shared.gettrandingMovies { results in
-//
-//            switch results {
-//            case .success(let movies):
-//                print(movies)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        
-//        APICaller.shared.getTrandingTV { results in
-//        }
-        
-//        APICaller.shared.getUpComingMovie { results in
-//
-//        }
-        
-//        APICaller.shared.getPopular { results in
-//
-//        }
-        
-        APICaller.shared.getTopRater { results in 
-        }
-    }
-    
-
 }
 
 //MARK: - Setup UI Elements
@@ -84,14 +63,10 @@ extension HomeViewController {
     
     private func setupNavigationBarItems() {
         
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = UIColor.clear
         
         let logolabel = UILabel()
         logolabel.text = "MOVIE BOX"
-        logolabel.textColor = .systemYellow
+        logolabel.textColor = .systemGreen
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logolabel)
         
         navigationItem.rightBarButtonItems = [
@@ -117,7 +92,63 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.collectionViewInTableViewID, for: indexPath) as? CollectionViewInTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewInTableViewCell.identifire, for: indexPath) as? CollectionViewInTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        switch indexPath.section {
+        case Sections.TrendingMovies.rawValue:
+            
+            APICaller.shared.getTrendingMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                
+                }
+            }
+        case Sections.TrendingTV.rawValue:
+            
+            APICaller.shared.getTrendingTV { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.Popular.rawValue:
+            
+            APICaller.shared.getPopular { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.Upcoming.rawValue:
+            
+            APICaller.shared.getUpcomingMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.TopRated.rawValue:
+            
+            APICaller.shared.getTopRater { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        default:
             return UITableViewCell()
         }
         
