@@ -33,7 +33,7 @@ class TopHeaderUIView: UIView {
     private let trailerButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(UIColor.gray, for: .normal)
-        button.layer.borderColor = UIColor.gray.cgColor
+        button.layer.borderColor = UIColor.systemGreen.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
         button.layer.cornerRadius = 7
@@ -55,7 +55,7 @@ class TopHeaderUIView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "TRAILER"
-        label.textColor = .gray
+        label.textColor = .systemGreen
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -64,7 +64,7 @@ class TopHeaderUIView: UIView {
     private let trailerButtonIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "film")
-        imageView.tintColor = .gray
+        imageView.tintColor = .systemGreen
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

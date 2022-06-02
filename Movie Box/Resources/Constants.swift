@@ -12,6 +12,8 @@ struct K {
     static let homeCellID = "HomeID"
     static let collectionViewInTableViewID = "CollectionViewInTableViewCell"
     static let titleCollectionViewCell = "TitleCollectionViewCell"
+    static let titleTableViewCell = "TitleTableViewCell"
+    
     static let apiKey = "eec2a7a6a8a32b9931505d453985726f"
     static let basedURL = "https://api.themoviedb.org"
     
