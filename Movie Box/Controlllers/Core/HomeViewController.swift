@@ -17,6 +17,9 @@ enum Sections: Int {
 
 class HomeViewController: UIViewController {
     
+    private var randomeTrandingMovie: Title?
+    private var headerView: TopHeaderUIView?
+    
     let sectionTitles: [String] = [K.SectionTitles.trendingMovies, K.SectionTitles.trendingTv, K.SectionTitles.popular, K.SectionTitles.upcomingMovies, K.SectionTitles.topRater]
 
     private let feedTableView: UITableView = {
@@ -35,7 +38,7 @@ class HomeViewController: UIViewController {
         feedTableView.delegate = self
         feedTableView.dataSource = self
         
-        let headerView = TopHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        headerView = TopHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         feedTableView.tableHeaderView = headerView
         
         
@@ -61,6 +64,7 @@ extension HomeViewController {
     
     private func setupUIElements() {
         setupNavigationBarItems()
+        confugureHeaderView()
     }
     
     private func setupNavigationBarItems() {
@@ -77,8 +81,19 @@ extension HomeViewController {
         ]
         
         navigationController?.navigationBar.tintColor = .white
-        
-        
+    }
+    
+    private func confugureHeaderView() {
+        APICaller.shared.getTrendingMovies { [weak self] result in
+            switch result {
+            case .success(let titles):
+                let selectedTitle = titles.randomElement()
+                self?.randomeTrandingMovie = selectedTitle
+                self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
