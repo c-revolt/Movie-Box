@@ -14,8 +14,10 @@ struct K {
     static let titleCollectionViewCell = "TitleCollectionViewCell"
     static let titleTableViewCell = "TitleTableViewCell"
     
+    static let apiKeyYouTube = "AIzaSyBxuZBP3jcCZj81j10kJH06yQfs2fNcRV0"
     static let apiKey = "eec2a7a6a8a32b9931505d453985726f"
     static let basedURL = "https://api.themoviedb.org"
+    static let youtubeBasedURL = "https://youtube.googleapis.com/youtube/v3/search?"
     
     struct SectionTitles {
         static let trendingMovies = "Trending Movies"
