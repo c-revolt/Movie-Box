@@ -104,4 +104,26 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let title = titles[indexPath.row]
+        
+        guard let titleName = title.original_title ?? title.original_name else { return }
+        
+        APICaller.shared.getMoview(with: titleName) { [weak self] result in
+            switch result {
+            case .success(let ytVideo):
+                DispatchQueue.main.async {
+                    let viewController = PreviewViewController()
+                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? ""))
+                    self?.navigationController?.pushViewController(viewController, animated: true)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

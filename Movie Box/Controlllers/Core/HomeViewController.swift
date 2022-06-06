@@ -97,6 +97,7 @@ extension HomeViewController {
     }
 }
 
+//MARK: - UITableViewDelegate & UITableViewDataSource 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

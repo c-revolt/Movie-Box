@@ -120,10 +120,34 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         return 200
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let title = titles[indexPath.row]
+        
+        guard let titleName = title.original_title ?? title.original_name else { return }
+        
+        
+        
+        APICaller.shared.getMoview(with: titleName) { [weak self] result in
+            switch result {
+            case .success(let ytVideo):
+                DispatchQueue.main.async {
+                    let viewController = PreviewViewController()
+                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? ""))
+                    self?.navigationController?.pushViewController(viewController, animated: true)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
-//MARK: - UISearchResultsUpdating
-extension SearchViewController: UISearchResultsUpdating {
+//MARK: - UISearchResultsUpdating & SearchResultsViewControllerDelegate
+extension SearchViewController: UISearchResultsUpdating, SearchResultsViewControllerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
@@ -133,6 +157,8 @@ extension SearchViewController: UISearchResultsUpdating {
               query.trimmingCharacters(in: .whitespaces).count >= 3,
               let resultController = searchController.searchResultsController as? SearchResultsViewController
         else { return }
+        
+        resultController.delegate = self
         
         APICaller.shared.search(with: query) { result in
             DispatchQueue.main.async {
@@ -145,6 +171,16 @@ extension SearchViewController: UISearchResultsUpdating {
                 }
             }
         }
+    }
+    
+    func searchResultsViewControllerDidTappedItem(_ viewModel: TitlePreviewViewModel) {
+        
+        DispatchQueue.main.async { [weak self] in
+            let viewController = PreviewViewController()
+            viewController.configure(with: viewModel)
+            self?.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
     }
     
     
