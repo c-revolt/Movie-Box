@@ -18,9 +18,9 @@ class TopHeaderUIView: UIView {
         return imageView
     }()
     
-    private let playButton: UIButton = {
+    private let addToList: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("PLAY", for: .normal)
+        button.setTitle("Add To List", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.backgroundColor = .systemGreen
         button.layer.borderColor = UIColor.white.cgColor
@@ -40,15 +40,6 @@ class TopHeaderUIView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
-    }()
-    
-    private let playButtonIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "play.fill")
-        imageView.tintColor = .black
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     
     private let trailerLabel: UILabel = {
@@ -75,8 +66,7 @@ class TopHeaderUIView: UIView {
         
         addSubview(topImageView)
         createGradient()
-        addSubview(playButton)
-        playButton.addSubview(playButtonIcon)
+        addSubview(addToList)
         addSubview(trailerButton)
         trailerButton.addSubview(trailerLabel)
         trailerButton.addSubview(trailerButtonIcon)
@@ -108,10 +98,10 @@ extension TopHeaderUIView {
     
     private func applyConctraints() {
         playButtonConstaints()
-        playButtonIconConstraints()
         trailerButtonConstraints()
         trailerButtonIconConstraints()
         trailerLabelConstraints()
+        
     }
     
     private func createGradient() {
@@ -124,22 +114,16 @@ extension TopHeaderUIView {
         layer.addSublayer(gradient)
     }
     
+
+        
+    
     private func playButtonConstaints() {
         
         NSLayoutConstraint.activate([
-            playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
-            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-            playButton.widthAnchor.constraint(equalToConstant: 110),
-            playButton.heightAnchor.constraint(equalToConstant: 47)
-        ])
-    }
-    
-    private func playButtonIconConstraints() {
-        
-        NSLayoutConstraint.activate([
-            playButtonIcon.topAnchor.constraint(equalTo: playButton.topAnchor, constant: 13),
-            playButtonIcon.leadingAnchor.constraint(equalTo: playButton.leadingAnchor, constant: 15)
-            
+            addToList.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
+            addToList.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
+            addToList.widthAnchor.constraint(equalToConstant: 110),
+            addToList.heightAnchor.constraint(equalToConstant: 47)
         ])
     }
     

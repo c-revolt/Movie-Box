@@ -52,7 +52,10 @@ class HomeViewController: UIViewController {
         addSubviews()
         setupUIElements()
         
+        
+        
     }
+
 }
 
 //MARK: - Setup UI Elements
@@ -69,6 +72,8 @@ extension HomeViewController {
     
     private func setupNavigationBarItems() {
         
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         
         let logolabel = UILabel()
         logolabel.text = "MOVIE BOX"
@@ -95,6 +100,8 @@ extension HomeViewController {
             }
         }
     }
+    
+    
 }
 
 //MARK: - UITableViewDelegate & UITableViewDataSource 
@@ -216,6 +223,4 @@ extension HomeViewController: CollectionViewInTableViewCellDelegate {
         }
         
     }
-    
-    
 }

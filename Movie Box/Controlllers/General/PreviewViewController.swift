@@ -10,6 +10,8 @@ import WebKit
 
 class PreviewViewController: UIViewController {
     
+    private var titles: [Title] = [Title]()
+    
     private let webView: WKWebView = {
         let web = WKWebView()
         web.translatesAutoresizingMaskIntoConstraints = false
@@ -32,15 +34,16 @@ class PreviewViewController: UIViewController {
         return label
     }()
     
-    private let downloadButton: UIButton = {
+    let addToListButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Download", for: .normal)
+        button.setTitle("Add To List", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 18)
         button.setTitleColor(UIColor.black, for: .normal)
         button.backgroundColor = .systemGreen
         button.layer.cornerRadius = 7
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        
         return button
     }()
 
@@ -52,6 +55,8 @@ class PreviewViewController: UIViewController {
         
         addSubiews()
         applyConstraints()
+        
+        addToListButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
 
     }
     
@@ -63,6 +68,26 @@ class PreviewViewController: UIViewController {
         
         webView.load(URLRequest(url: url))
     }
+    
+    private func addToList(indexPath: IndexPath) {
+        
+        DataPersistenceManager.shared.userBoxTitleWith(model: titles[indexPath.row]) { result in
+                
+            switch result {
+            case .success():
+                NotificationCenter.default.post(name: NSNotification.Name("Added"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    @objc func addButtonTapped(_ sender: UIButton) {
+        
+    }
+    
+    
 
 }
 
@@ -73,7 +98,7 @@ extension PreviewViewController {
         view.addSubview(webView)
         view.addSubview(titleLabel)
         view.addSubview(overviewLabel)
-        view.addSubview(downloadButton)
+        view.addSubview(addToListButton)
     }
     
     private func applyConstraints() {
@@ -98,10 +123,11 @@ extension PreviewViewController {
         ])
         
         NSLayoutConstraint.activate([
-            downloadButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -110),
-            downloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            downloadButton.widthAnchor.constraint(equalToConstant: 140),
-            downloadButton.heightAnchor.constraint(equalToConstant: 47)
+            addToListButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 100),
+            //addToListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addToListButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
+            addToListButton.widthAnchor.constraint(equalToConstant: 140),
+            addToListButton.heightAnchor.constraint(equalToConstant: 47)
         ])
         
     }

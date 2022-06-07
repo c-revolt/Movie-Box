@@ -49,6 +49,20 @@ class CollectionViewInTableViewCell: UITableViewCell {
         
         collectionView.frame = contentView.bounds
     }
+    
+    private func addToList(indexPath: IndexPath) {
+        
+        DataPersistenceManager.shared.userBoxTitleWith(model: titles[indexPath.row]) { result in
+                
+            switch result {
+            case .success():
+                NotificationCenter.default.post(name: NSNotification.Name("Added"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 // MARK: - Setup UI Elements
@@ -111,6 +125,19 @@ extension CollectionViewInTableViewCell: UICollectionViewDelegate, UICollectionV
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+            
+            let config = UIContextMenuConfiguration(
+                identifier: nil,
+                previewProvider: nil) {[weak self] _ in
+                    let downloadAction = UIAction(title: "Add to my Box", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
+                        self?.addToList(indexPath: indexPath)
+                    }
+                    return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [downloadAction])
+                }
+            
+            return config
+        }
 
     
 }
