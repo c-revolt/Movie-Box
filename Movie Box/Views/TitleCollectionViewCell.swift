@@ -43,7 +43,6 @@ extension TitleCollectionViewCell {
     private func addSubviews() {
         contentView.addSubview(posterImageView)
     }
-    
 }
 
 // MARK: - Configured with SDWebImages
@@ -53,6 +52,5 @@ extension TitleCollectionViewCell {
         
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model)") else { return }
         posterImageView.sd_setImage(with: url, completed: nil)
-        
     }
 }

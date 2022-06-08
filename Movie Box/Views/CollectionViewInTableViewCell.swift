@@ -16,7 +16,6 @@ class CollectionViewInTableViewCell: UITableViewCell {
 
     static let identifire = K.collectionViewInTableViewID
     private var titles: [Title] = [Title]()
-    
     weak var delegate: CollectionViewInTableViewCellDelegate?
 
     private let collectionView: UICollectionView = {
@@ -89,9 +88,10 @@ extension CollectionViewInTableViewCell: UICollectionViewDelegate, UICollectionV
             return UICollectionViewCell()
         }
         
+
         guard let model = titles[indexPath.row].poster_path else {
-            return UICollectionViewCell()
-        }
+                    return UICollectionViewCell()
+                }
         cell.configure(with: model)
         
         return cell
@@ -116,7 +116,7 @@ extension CollectionViewInTableViewCell: UICollectionViewDelegate, UICollectionV
                 guard let titleOverview = title?.overview else { return }
                 guard let strongSelf = self else { return }
                 
-                let viewModel = TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: titleOverview)
+                let viewModel = TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: titleOverview, voteAverage: title?.vote_average ?? 0.0)
                 self?.delegate?.collectionViewInTableViewCellDidTappedCell(strongSelf, viewModel: viewModel)
                 
             case .failure(let error):

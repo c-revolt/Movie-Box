@@ -110,7 +110,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifire, for: indexPath) as? TitleTableViewCell else { return UITableViewCell() }
         
         let title = titles[indexPath.row]
-        let model = TitleViewModel(titleName: title.original_name ?? title.original_title ?? "Unknown name", posterURL: title.poster_path ?? "")
+        let model = TitleViewModel(titleName: title.original_name ?? title.original_title ?? "Unknown name", posterURL: title.poster_path ?? "", overView: title.overview ?? "", rate: title.vote_average)
         cell.configure(with: model)
         
         return cell
@@ -134,7 +134,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             case .success(let ytVideo):
                 DispatchQueue.main.async {
                     let viewController = PreviewViewController()
-                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? ""))
+                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? "", voteAverage: title.vote_average ))
                     self?.navigationController?.pushViewController(viewController, animated: true)
                 }
                 

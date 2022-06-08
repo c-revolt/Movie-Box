@@ -96,7 +96,7 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         let title = titles[indexPath.row]
-        cell.configure(with: TitleViewModel(titleName: (title.original_title ?? title.original_name) ?? "Unknown Title", posterURL: title.poster_path ?? "" ))
+        cell.configure(with: TitleViewModel(titleName: (title.original_title ?? title.original_name) ?? "Unknown Title", posterURL: title.poster_path ?? "", overView: title.overview ?? "", rate: title.vote_average))
         
         return cell
     }
@@ -117,7 +117,7 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
             case .success(let ytVideo):
                 DispatchQueue.main.async {
                     let viewController = PreviewViewController()
-                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? ""))
+                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? "", voteAverage: title.vote_average))
                     self?.navigationController?.pushViewController(viewController, animated: true)
                 }
                 

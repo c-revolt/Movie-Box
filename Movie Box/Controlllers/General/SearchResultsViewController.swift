@@ -68,6 +68,8 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         let title = titles[indexPath.row]
         cell.configure(with: title.poster_path ?? "Unknown")
         
+//        cell.configure(with: TitleViewModel(titleName: title.original_title ?? "Unknown Video", posterURL: title.poster_path ?? "Unknown", overView: title.overview ?? "", rate: title.vote_average))
+        
         
         return cell
     }
@@ -81,7 +83,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         APICaller.shared.getMoview(with: titleName) { [weak self] result in
             switch result {
             case .success(let ytVideo):
-                self?.delegate?.searchResultsViewControllerDidTappedItem(TitlePreviewViewModel(youtube: ytVideo, title: title.original_title ?? "", titleOverview: title.overview ?? ""))
+                self?.delegate?.searchResultsViewControllerDidTappedItem(TitlePreviewViewModel(youtube: ytVideo, title: title.original_title ?? "", titleOverview: title.overview ?? "", voteAverage: title.vote_average))
             case .failure(let error):
                 print(error.localizedDescription)
 

@@ -20,7 +20,7 @@ class TopHeaderUIView: UIView {
     
     private let addToList: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Add To List", for: .normal)
+        button.setTitle("Add To Box", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.backgroundColor = .systemGreen
         button.layer.borderColor = UIColor.white.cgColor

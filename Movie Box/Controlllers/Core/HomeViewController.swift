@@ -94,7 +94,7 @@ extension HomeViewController {
             case .success(let titles):
                 let selectedTitle = titles.randomElement()
                 self?.randomeTrandingMovie = selectedTitle
-                self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
+                self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? "", overView: selectedTitle?.overview ?? "", rate: selectedTitle?.vote_average ?? 0.0))
             case .failure(let error):
                 print(error.localizedDescription)
             }

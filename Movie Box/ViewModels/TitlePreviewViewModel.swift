@@ -11,4 +11,5 @@ struct TitlePreviewViewModel {
     let youtube: YTVideo
     let title: String
     let titleOverview: String
+    let voteAverage: Double
 }

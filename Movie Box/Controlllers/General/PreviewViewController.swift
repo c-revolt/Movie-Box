@@ -26,10 +26,23 @@ class PreviewViewController: UIViewController {
         return label
     }()
     
+    private let voteAverageLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .yellow
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.textColor = .systemGray
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 7
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let overviewLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
         label.numberOfLines = 0
+        label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -63,6 +76,7 @@ class PreviewViewController: UIViewController {
     func configure(with model: TitlePreviewViewModel) {
         titleLabel.text = model.title
         overviewLabel.text = model.titleOverview
+        voteAverageLabel.text = String(model.voteAverage)
         
         guard let url = URL(string: "https://youtube.com/embed/\(model.youtube.id.videoId)") else { return }
         
@@ -99,6 +113,7 @@ extension PreviewViewController {
         view.addSubview(titleLabel)
         view.addSubview(overviewLabel)
         view.addSubview(addToListButton)
+        view.addSubview(voteAverageLabel)
     }
     
     private func applyConstraints() {
@@ -112,23 +127,31 @@ extension PreviewViewController {
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
-            overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-            overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            voteAverageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            voteAverageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            voteAverageLabel.widthAnchor.constraint(equalToConstant: 40),
+            voteAverageLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
         
         NSLayoutConstraint.activate([
-            addToListButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 100),
-            //addToListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addToListButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
+            overviewLabel.topAnchor.constraint(equalTo: voteAverageLabel.bottomAnchor, constant: 15),
+            overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addToListButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            addToListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             addToListButton.widthAnchor.constraint(equalToConstant: 140),
             addToListButton.heightAnchor.constraint(equalToConstant: 47)
         ])
+        
+        
         
     }
 }

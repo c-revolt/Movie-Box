@@ -11,9 +11,9 @@ class UserBoxViewController: UIViewController {
 
     private var titles: [TitleItem] = [TitleItem]()
     
-    private let userListTable: UITableView = {
+    private let userBoxTableView: UITableView = {
         let table = UITableView()
-        table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifire)
+        table.register(UserBoxTableViewCell.self, forCellReuseIdentifier: UserBoxTableViewCell.identifire)
         return table
     }()
     
@@ -22,8 +22,8 @@ class UserBoxViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         
-        userListTable.delegate = self
-        userListTable.dataSource = self
+        userBoxTableView.delegate = self
+        userBoxTableView.dataSource = self
         
         addSubviews()
         setupUIElements()
@@ -38,7 +38,7 @@ class UserBoxViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        userListTable.frame = view.bounds
+        userBoxTableView.frame = view.bounds
     }
     
     private func fetchLocalStorageForList() {
@@ -47,7 +47,7 @@ class UserBoxViewController: UIViewController {
             case .success(let titles):
                 self?.titles = titles
                 DispatchQueue.main.async {
-                    self?.userListTable.reloadData()
+                    self?.userBoxTableView.reloadData()
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -61,7 +61,7 @@ class UserBoxViewController: UIViewController {
 extension UserBoxViewController {
     
     private func addSubviews() {
-        view.addSubview(userListTable)
+        view.addSubview(userBoxTableView)
     }
     
     private func setupUIElements() {
@@ -89,10 +89,10 @@ extension UserBoxViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifire, for: indexPath) as? TitleTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserBoxTableViewCell.identifire, for: indexPath) as? UserBoxTableViewCell else { return UITableViewCell() }
         
         let title = titles[indexPath.row]
-        cell.configure(with: TitleViewModel(titleName: (title.original_name ?? title.original_title) ?? "Unknown Video", posterURL: title.poster_path ?? ""))
+        cell.configure(with: TitleViewModel(titleName: (title.original_name ?? title.original_title) ?? "Unknown Video", posterURL: title.poster_path ?? "", overView: title.overview ?? "", rate: title.vote_average))
         
         return cell
     }
@@ -136,7 +136,7 @@ extension UserBoxViewController: UITableViewDelegate, UITableViewDataSource {
             case .success(let ytVideo):
                 DispatchQueue.main.async {
                     let viewController = PreviewViewController()
-                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? ""))
+                    viewController.configure(with: TitlePreviewViewModel(youtube: ytVideo, title: titleName, titleOverview: title.overview ?? "", voteAverage: title.vote_average))
                     self?.navigationController?.pushViewController(viewController, animated: true)
                 }
                 

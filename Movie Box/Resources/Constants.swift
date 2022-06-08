@@ -13,6 +13,7 @@ struct K {
     static let collectionViewInTableViewID = "CollectionViewInTableViewCell"
     static let titleCollectionViewCell = "TitleCollectionViewCell"
     static let titleTableViewCell = "TitleTableViewCell"
+    static let userBoxTableViewCell = "UserBoxTableViewCell"
     
     static let apiKeyYouTube = "AIzaSyBxuZBP3jcCZj81j10kJH06yQfs2fNcRV0"
     static let apiKey = "eec2a7a6a8a32b9931505d453985726f"

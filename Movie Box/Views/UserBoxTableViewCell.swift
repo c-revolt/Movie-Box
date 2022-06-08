@@ -1,15 +1,15 @@
 //
-//  TitleTableViewCell.swift
+//  UserBoxTableViewCell.swift
 //  Movie Box
 //
-//  Created by Александр Прайд on 02.06.2022.
+//  Created by Александр Прайд on 08.06.2022.
 //
 
 import UIKit
 
-class TitleTableViewCell: UITableViewCell {
+class UserBoxTableViewCell: UITableViewCell {
 
-    static let identifire = K.titleTableViewCell
+    static let identifire = K.userBoxTableViewCell
     
     private let titlesPosterImageView: UIImageView = {
         let imageView = UIImageView()
@@ -24,18 +24,19 @@ class TitleTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 22, weight: .bold)
         label.textAlignment = .left
         label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 22, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let overViewlabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .systemGray
-        label.numberOfLines = 4
+        label.textAlignment = .left
+        label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -74,9 +75,8 @@ class TitleTableViewCell: UITableViewCell {
     }
 
 }
-
 // MARK: - Setup UI Elements
-extension TitleTableViewCell {
+extension UserBoxTableViewCell {
     
     private func addSubviews() {
         contentView.addSubview(titlesPosterImageView)
@@ -95,15 +95,16 @@ extension TitleTableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 10)
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            titleLabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
             
         ])
         
         NSLayoutConstraint.activate([
             overViewlabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             overViewlabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 10),
-            overViewlabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            overViewlabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
@@ -112,6 +113,5 @@ extension TitleTableViewCell {
             voteAverageLabel.widthAnchor.constraint(equalToConstant: 35),
             voteAverageLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
-        
     }
 }
