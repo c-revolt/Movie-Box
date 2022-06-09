@@ -57,6 +57,7 @@
 		D0B093DF2848B87400A49FEB /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
 		D0B093E12848DDEB00A49FEB /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		D0B5C4D628507CBD008903F4 /* UserBoxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoxTableViewCell.swift; sourceTree = "<group>"; };
+		D0B5C4D92851DCCB008903F4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D0C479702849F7A700A85C85 /* YouTubeSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeSearch.swift; sourceTree = "<group>"; };
 		D0C47972284A017A00A85C85 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		D0C47974284A1EEF00A85C85 /* TitlePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePreviewViewModel.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		D0651EB428449BAF00CE23D9 = {
 			isa = PBXGroup;
 			children = (
+				D0B5C4D92851DCCB008903F4 /* README.md */,
 				D0651EBF28449BAF00CE23D9 /* Movie Box */,
 				D0651EBE28449BAF00CE23D9 /* Products */,
 			);
