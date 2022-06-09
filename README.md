@@ -4,7 +4,7 @@ This pet project loads data with films from the open API [tmdb](https://www.them
 The design idea for the project was inspired by:
 - [Netflix App](https://apps.apple.com/kz/app/netflix-basic/id363590051?l=en)
 - [This App](https://apps.apple.com/ru/app/what-to-watch-movie-guide/id1603876553?l=en)
-- [This tamplate](https://dribbble.com/shots/14790000-Movie-Online-App/attachments/6496305?mode=media).
+- [This Template](https://dribbble.com/shots/14790000-Movie-Online-App/attachments/6496305?mode=media).
 ___
 
 ## **Stack**
