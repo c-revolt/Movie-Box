@@ -18,21 +18,61 @@ class TopHeaderUIView: UIView {
         return imageView
     }()
     
-    private let addToList: UIButton = {
+    private let voteAverageLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .yellow
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .black
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 7
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 30, weight: .bold)
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let inABoxButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Add To Box", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
         button.backgroundColor = .systemGreen
-        button.layer.borderColor = UIColor.white.cgColor
+        button.clipsToBounds = true
         button.layer.cornerRadius = 7
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
+    private let inABoxButtonIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "plus.square")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private let inABoxButtonLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "IN A BOX"
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    
+    
     private let trailerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitleColor(UIColor.gray, for: .normal)
         button.layer.borderColor = UIColor.systemGreen.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
@@ -66,12 +106,16 @@ class TopHeaderUIView: UIView {
         
         addSubview(topImageView)
         createGradient()
-        addSubview(addToList)
+        addSubview(titleLabel)
+        addSubview(voteAverageLabel)
+        addSubview(inABoxButton)
+        inABoxButton.addSubview(inABoxButtonIcon)
+        inABoxButton.addSubview(inABoxButtonLabel)
         addSubview(trailerButton)
         trailerButton.addSubview(trailerLabel)
         trailerButton.addSubview(trailerButtonIcon)
         
-        applyConctraints()
+        applyConstraints()
         
     }
     
@@ -85,24 +129,23 @@ class TopHeaderUIView: UIView {
     }
     
     func configure(with model: TitleViewModel) {
+        
+        DispatchQueue.main.async {
+            self.titleLabel.text = model.titleName
+            self.voteAverageLabel.text = String(model.rate)
+        }
+        
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else { return }
         
-        
         topImageView.sd_setImage(with: url, completed: nil)
+        
+        
     }
 
 }
 
 // MARK: - Setup UI Elements
 extension TopHeaderUIView {
-    
-    private func applyConctraints() {
-        playButtonConstaints()
-        trailerButtonConstraints()
-        trailerButtonIconConstraints()
-        trailerLabelConstraints()
-        
-    }
     
     private func createGradient() {
         let gradient = CAGradientLayer()
@@ -116,40 +159,55 @@ extension TopHeaderUIView {
     
 
         
-    
-    private func playButtonConstaints() {
+    private func applyConstraints() {
         
         NSLayoutConstraint.activate([
-            addToList.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
-            addToList.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-            addToList.widthAnchor.constraint(equalToConstant: 110),
-            addToList.heightAnchor.constraint(equalToConstant: 47)
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
-    }
-    
-    private func trailerButtonConstraints() {
+        
         NSLayoutConstraint.activate([
-            trailerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
+            voteAverageLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            voteAverageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
+            voteAverageLabel.widthAnchor.constraint(equalToConstant: 47),
+            voteAverageLabel.heightAnchor.constraint(equalToConstant: 47)
+        ])
+        
+        NSLayoutConstraint.activate([
+            inABoxButton.leadingAnchor.constraint(equalTo: trailerButton.trailingAnchor, constant: 10),
+            inABoxButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
+            inABoxButton.widthAnchor.constraint(equalToConstant: 110),
+            inABoxButton.heightAnchor.constraint(equalToConstant: 47)
+        ])
+        
+        NSLayoutConstraint.activate([
+            inABoxButtonIcon.topAnchor.constraint(equalTo: inABoxButton.topAnchor, constant: 13),
+            inABoxButtonIcon.leadingAnchor.constraint(equalTo: inABoxButton.leadingAnchor, constant: 5)
+        ])
+        
+        NSLayoutConstraint.activate([
+            inABoxButtonLabel.topAnchor.constraint(equalTo: inABoxButton.topAnchor, constant: 13),
+            inABoxButtonLabel.trailingAnchor.constraint(equalTo: inABoxButton.trailingAnchor, constant: -10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            trailerButton.leadingAnchor.constraint(equalTo: voteAverageLabel.trailingAnchor, constant: 10),
             trailerButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             trailerButton.widthAnchor.constraint(equalToConstant: 110),
             trailerButton.heightAnchor.constraint(equalToConstant: 47)
         ])
-    }
-    
-    private func trailerButtonIconConstraints() {
         
         NSLayoutConstraint.activate([
             trailerButtonIcon.topAnchor.constraint(equalTo: trailerButton.topAnchor, constant: 13),
             trailerButtonIcon.leadingAnchor.constraint(equalTo: trailerButton.leadingAnchor, constant: 5)
-            
         ])
-    }
-    
-    private func trailerLabelConstraints() {
         
         NSLayoutConstraint.activate([
             trailerLabel.topAnchor.constraint(equalTo: trailerButton.topAnchor, constant: 13),
             trailerLabel.trailingAnchor.constraint(equalTo: trailerButton.trailingAnchor, constant: -10)
         ])
+        
     }
+    
 }

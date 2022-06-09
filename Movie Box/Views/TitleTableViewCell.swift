@@ -45,7 +45,7 @@ class TitleTableViewCell: UITableViewCell {
         label.backgroundColor = .yellow
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 19, weight: .bold)
-        label.textColor = .systemGray
+        label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 7
         label.translatesAutoresizingMaskIntoConstraints = false

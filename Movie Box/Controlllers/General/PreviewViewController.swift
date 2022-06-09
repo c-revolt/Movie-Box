@@ -30,8 +30,8 @@ class PreviewViewController: UIViewController {
         let label = UILabel()
         label.backgroundColor = .yellow
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 22, weight: .bold)
-        label.textColor = .systemGray
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 7
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +49,7 @@ class PreviewViewController: UIViewController {
     
     let addToListButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Add To List", for: .normal)
+        button.setTitle("In a Box", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 18)
         button.setTitleColor(UIColor.black, for: .normal)
         button.backgroundColor = .systemGreen

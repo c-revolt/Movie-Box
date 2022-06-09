@@ -38,7 +38,7 @@ extension MainTabBarController {
         homeVC.title = "Home"
         upcomingVC.title = "Comming Soon"
         searchVC.title = "Search"
-        userListVC.title = "Download"
+        userListVC.title = "My Box"
         
         tabBar.tintColor = .systemGreen
         

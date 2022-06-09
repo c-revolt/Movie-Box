@@ -26,7 +26,7 @@ class UserBoxTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,14 +45,14 @@ class UserBoxTableViewCell: UITableViewCell {
         let label = UILabel()
         label.backgroundColor = .yellow
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 19, weight: .bold)
-        label.textColor = .systemGray
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 7
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+ 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
@@ -73,7 +73,6 @@ class UserBoxTableViewCell: UITableViewCell {
         overViewlabel.text = model.overView
         voteAverageLabel.text = String(model.rate)
     }
-
 }
 // MARK: - Setup UI Elements
 extension UserBoxTableViewCell {
@@ -88,30 +87,32 @@ extension UserBoxTableViewCell {
     private func applyContraints() {
         
         NSLayoutConstraint.activate([
-            titlesPosterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            titlesPosterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             titlesPosterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titlesPosterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            titlesPosterImageView.widthAnchor.constraint(equalToConstant: 100)
+            titlesPosterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            titlesPosterImageView.widthAnchor.constraint(equalToConstant: 200)
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            titleLabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            voteAverageLabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 5),
+            voteAverageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            voteAverageLabel.widthAnchor.constraint(equalToConstant: 35),
+            voteAverageLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
+            
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: voteAverageLabel.bottomAnchor, constant: 5),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            titleLabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 5)
             
         ])
         
         NSLayoutConstraint.activate([
             overViewlabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            overViewlabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 10),
-            overViewlabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            overViewlabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 5),
+            overViewlabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            overViewlabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
-        
-        NSLayoutConstraint.activate([
-            voteAverageLabel.leadingAnchor.constraint(equalTo: titlesPosterImageView.trailingAnchor, constant: 10),
-            voteAverageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            voteAverageLabel.widthAnchor.constraint(equalToConstant: 35),
-            voteAverageLabel.heightAnchor.constraint(equalToConstant: 20)
-        ])
+       
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 
 protocol CollectionViewInTableViewCellDelegate: AnyObject {
+    
     func collectionViewInTableViewCellDidTappedCell(_ cell: CollectionViewInTableViewCell, viewModel: TitlePreviewViewModel)
 }
 

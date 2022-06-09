@@ -74,6 +74,7 @@ extension HomeViewController {
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
         
         let logolabel = UILabel()
         logolabel.text = "MOVIE BOX"
